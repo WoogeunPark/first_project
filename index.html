@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QR Code Generator</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-  <link href='style.css?v=2' rel='stylesheet'>
+  <link href='style.css?v=3' rel='stylesheet'>
 </head>
 <body>
   <div class="container">
@@ -15,6 +15,29 @@
     <div id="qrcode"></div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
-  <script defer type="text/javascript" src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const textInput = document.getElementById('text-input');
+      const generateButton = document.getElementById('generate-button');
+      const qrcodeContainer = document.getElementById('qrcode');
+
+      generateButton.addEventListener('click', () => {
+        const text = textInput.value;
+        if (text) {
+          try {
+            const typeNumber = 4;
+            const errorCorrectionLevel = 'L';
+            const qr = qrcode(typeNumber, errorCorrectionLevel);
+            qr.addData(text);
+            qr.make();
+            qrcodeContainer.innerHTML = qr.createImgTag();
+          } catch (e) {
+            console.error(e);
+            alert("Error generating QR code.");
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>

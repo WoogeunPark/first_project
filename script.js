@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailForm = document.getElementById('email-form');
       const smsForm = document.getElementById('sms-form');
       const vcardForm = document.getElementById('vcard-form');
-      const eventForm = document.getElementById('event-form');
 
       // Input Fields
       const textInput = document.getElementById('text-input');
@@ -24,9 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const vcardNameInput = document.getElementById('vcard-name');
       const vcardPhoneInput = document.getElementById('vcard-phone');
       const vcardEmailInput = document.getElementById('vcard-email');
-      const eventTitleInput = document.getElementById('event-title');
-      const eventStartInput = document.getElementById('event-start');
-      const eventEndInput = document.getElementById('event-end');
       const fgColorInput = document.getElementById('fg-color');
       const bgColorInput = document.getElementById('bg-color');
 
@@ -130,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         emailForm.style.display = 'none';
         smsForm.style.display = 'none';
         vcardForm.style.display = 'none';
-        eventForm.style.display = 'none';
 
         if (qrTypeSelect.value === 'text') {
           textForm.style.display = 'block';
@@ -142,8 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
           smsForm.style.display = 'block';
         } else if (qrTypeSelect.value === 'vcard') {
           vcardForm.style.display = 'block';
-        } else if (qrTypeSelect.value === 'event') {
-          eventForm.style.display = 'block';
         }
       });
 
@@ -153,8 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'descWifiTitle': 'wifi',
         'descEmailTitle': 'email',
         'descSmsTitle': 'sms',
-        'descVcardTitle': 'vcard',
-        'descEventTitle': 'event'
+        'descVcardTitle': 'vcard'
       };
 
       // Add event listeners to description cards
@@ -206,13 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const email = vcardEmailInput.value;
           if (name) {
             qrData = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
-          }
-        } else if (selectedType === 'event') {
-          const title = eventTitleInput.value;
-          const start = eventStartInput.value;
-          const end = eventEndInput.value;
-          if (title && start && end) {
-            qrData = `BEGIN:VEVENT\nSUMMARY:${title}\nDTSTART:${start}\nDTEND:${end}\nEND:VEVENT`;
           }
         }
 

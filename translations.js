@@ -52,7 +52,7 @@ const translations = {
     "descEventTitle": "Event",
     "descEventDesc": "Description: Creates a calendar event that users can add to their device's calendar. It includes the event title, start time, and end time.",
     "descEventExample": "Usage Example: Ideal for event invitations, conference schedules, or appointment reminders. A quick scan and the event is saved in their calendar.",
-    "footerText": "A simple and powerful QR Code Generator created by Gemini.",
+
     "privacyPolicyLink": "Privacy Policy",
     "contactUsLink": "Contact Us",
     "privacyPolicyTitle": "Privacy Policy",

@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+      // Language Selection
+      const languageSelect = document.getElementById('language-select');
+
       // QR Code Type Selection
       const qrTypeSelect = document.getElementById('qr-type');
       const textForm = document.getElementById('text-form');
@@ -27,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const fgColorInput = document.getElementById('fg-color');
       const bgColorInput = document.getElementById('bg-color');
 
-
       // Buttons and Containers
       const generateButton = document.getElementById('generate-button');
       const qrcodeContainer = document.getElementById('qrcode');
@@ -36,11 +38,63 @@ document.addEventListener('DOMContentLoaded', () => {
       const downloadJpegButton = document.getElementById('download-jpeg');
       const downloadPdfButton = document.getElementById('download-pdf');
 
+      // --- Internationalization (i18n) ---
+      const setLanguage = (lang) => {
+        const t = translations[lang];
+        if (!t) {
+          console.error("Translations for language " + lang + " not found.");
+          return;
+        }
+
+        // Translate document title
+        document.title = t["pageTitle"];
+
+        // Translate elements with data-i18n-key
+        document.querySelectorAll('[data-i18n-key]').forEach(element => {
+          const key = element.getAttribute('data-i18n-key');
+          if (t[key]) {
+            if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
+              element.setAttribute('placeholder', t[key]);
+            } else if (element.tagName === 'TEXTAREA' && element.hasAttribute('placeholder')) {
+              element.setAttribute('placeholder', t[key]);
+            } else if (element.tagName === 'OPTION') {
+                element.textContent = t[key];
+            } 
+            } else if (element.querySelector('i.fas')) { // Check if element contains a Font Awesome icon
+                const iconHtml = element.querySelector('i.fas').outerHTML;
+                element.innerHTML = iconHtml + ' ' + t[key]; // Re-add icon and new text
+            } else {
+              element.textContent = t[key]; // Use textContent for plain text elements
+          }
+        });
+        
+        // Specific handling for strong tags within descriptions
+        document.querySelectorAll('.description-card p strong').forEach(strongElement => {
+          const key = strongElement.getAttribute('data-i18n-key');
+          if (t[key]) {
+            strongElement.textContent = t[key];
+          }
+        });
+      };
+
+      // Load saved language or default to English
+      const savedLang = localStorage.getItem('language') || 'en';
+      languageSelect.value = savedLang;
+      setLanguage(savedLang);
+
+      // Language switcher event listener
+      languageSelect.addEventListener('change', (event) => {
+        const newLang = event.target.value;
+        localStorage.setItem('language', newLang);
+        setLanguage(newLang);
+      });
+
+
       // --- QR Code Generation ---
 
       const createQrCode = (data, fgColor, bgColor) => {
         const typeNumber = 0; // Auto-detect
-        const errorCorrectionLevel = 'L';
+        const errorCorrectionLevel = 'H';
         const qr = qrcode(typeNumber, errorCorrectionLevel);
         qr.addData(data);
         qr.make();
@@ -93,6 +147,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+      // Map description card titles to QR type values
+      const typeMap = {
+        'descTextTitle': 'text',
+        'descWifiTitle': 'wifi',
+        'descEmailTitle': 'email',
+        'descSmsTitle': 'sms',
+        'descVcardTitle': 'vcard',
+        'descEventTitle': 'event'
+      };
+
+      // Add event listeners to description cards
+      document.querySelectorAll('.description-card').forEach(card => {
+        card.style.cursor = 'pointer'; // Indicate interactivity
+        card.addEventListener('click', () => {
+          const h3Key = card.querySelector('h3').getAttribute('data-i18n-key');
+          const qrType = typeMap[h3Key];
+          if (qrType) {
+            qrTypeSelect.value = qrType;
+            // Manually dispatch change event to update the form
+            qrTypeSelect.dispatchEvent(new Event('change'));
+            // Scroll to the top of the generator form
+            document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+      
       // Generate QR Code on button click
       generateButton.addEventListener('click', () => {
         let qrData = '';

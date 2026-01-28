@@ -3,91 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QR Code Generator</title>
+  <title data-i18n-key="pageTitle">QR Code Generator</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href='style.css?v=5' rel='stylesheet'>
+  <link href='style.css?v=8' rel='stylesheet'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
+  <header>
+    <h1 data-i18n-key="headerTitle">QR Code Generator</h1>
+    <div class="language-switcher">
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ko">한국어</option>
+      </select>
+    </div>
+  </header>
+  <main class="main-content">
   <div class="container">
-    <h1>QR Code Generator</h1>
     <div class="input-group">
-      <label for="qr-type">Type</label>
+      <label for="qr-type" data-i18n-key="labelType">Type</label>
       <select id="qr-type">
-        <option value="text">Text/URL</option>
-        <option value="wifi">Wi-Fi</option>
-        <option value="email">Email</option>
-        <option value="sms">SMS</option>
-        <option value="vcard">vCard</option>
-        <option value="event">Event</option>
+        <option value="text" data-i18n-key="typeOptionText">Text/URL</option>
+        <option value="wifi" data-i18n-key="typeOptionWifi">Wi-Fi</option>
+        <option value="email" data-i18n-key="typeOptionEmail">Email</option>
+        <option value="sms" data-i18n-key="typeOptionSms">SMS</option>
+        <option value="vcard" data-i18n-key="typeOptionVcard">vCard</option>
+        <option value="event" data-i18n-key="typeOptionEvent">Event</option>
       </select>
     </div>
 
     <div id="input-forms">
       <div id="text-form">
-        <input type="text" id="text-input" placeholder="Enter text or URL">
+        <input type="text" id="text-input" data-i18n-key="textInputPlaceholder" placeholder="Enter text or URL">
       </div>
       <div id="wifi-form" style="display: none;">
-        <input type="text" id="wifi-ssid" placeholder="Network SSID">
-        <input type="password" id="wifi-password" placeholder="Password">
+        <input type="text" id="wifi-ssid" data-i18n-key="wifiSsidPlaceholder" placeholder="Network SSID">
+        <input type="password" id="wifi-password" data-i18n-key="wifiPasswordPlaceholder" placeholder="Password">
         <select id="wifi-encryption">
-          <option value="WPA">WPA/WPA2</option>
-          <option value="WEP">WEP</option>
-          <option value="nopass">No Password</option>
+          <option value="WPA" data-i18n-key="wifiEncryptionWpa">WPA/WPA2</option>
+          <option value="WEP" data-i18n-key="wifiEncryptionWep">WEP</option>
+          <option value="nopass" data-i18n-key="wifiEncryptionNone">No Password</option>
         </select>
       </div>
       <div id="email-form" style="display: none;">
-        <input type="email" id="email-to" placeholder="Recipient's Email">
-        <input type="text" id="email-subject" placeholder="Subject">
-        <textarea id="email-body" placeholder="Message"></textarea>
+        <input type="email" id="email-to" data-i18n-key="emailToPlaceholder" placeholder="Recipient's Email">
+        <input type="text" id="email-subject" data-i18n-key="emailSubjectPlaceholder" placeholder="Subject">
+        <textarea id="email-body" data-i18n-key="emailBodyPlaceholder" placeholder="Message"></textarea>
       </div>
       <div id="sms-form" style="display: none;">
-        <input type="tel" id="sms-to" placeholder="Phone Number">
-        <textarea id="sms-body" placeholder="Message"></textarea>
+        <input type="tel" id="sms-to" data-i18n-key="smsToPlaceholder" placeholder="Phone Number">
+        <textarea id="sms-body" data-i18n-key="smsBodyPlaceholder" placeholder="Message"></textarea>
       </div>
       <div id="vcard-form" style="display: none;">
-        <input type="text" id="vcard-name" placeholder="Name">
-        <input type="tel" id="vcard-phone" placeholder="Phone">
-        <input type="email" id="vcard-email" placeholder="Email">
+        <input type="text" id="vcard-name" data-i18n-key="vcardNamePlaceholder" placeholder="Name">
+        <input type="tel" id="vcard-phone" data-i18n-key="vcardPhonePlaceholder" placeholder="Phone">
+        <input type="email" id="vcard-email" data-i18n-key="vcardEmailPlaceholder" placeholder="Email">
       </div>
       <div id="event-form" style="display: none;">
-        <input type="text" id="event-title" placeholder="Event Title">
-        <input type="datetime-local" id="event-start" placeholder="Start Time">
-        <input type="datetime-local" id="event-end" placeholder="End Time">
+        <input type="text" id="event-title" data-i18n-key="eventTitlePlaceholder" placeholder="Event Title">
+        <input type="datetime-local" id="event-start">
+        <input type="datetime-local" id="event-end">
       </div>
     </div>
 
     <div class="customization-group">
-        <h3>Customization</h3>
+        <h3 data-i18n-key="customizationTitle">Customization</h3>
         <div class="color-picker">
-            <label for="fg-color">Foreground Color</label>
+            <label for="fg-color" data-i18n-key="foregroundColorLabel">Foreground Color</label>
             <input type="color" id="fg-color" value="#000000">
         </div>
         <div class="color-picker">
-            <label for="bg-color">Background Color</label>
+            <label for="bg-color" data-i18n-key="backgroundColorLabel">Background Color</label>
             <input type="color" id="bg-color" value="#ffffff">
-        </div>
-        <div class="input-group">
-            <label for="error-correction">Error Correction</label>
-            <select id="error-correction">
-                <option value="L">Low (L)</option>
-                <option value="M">Medium (M)</option>
-                <option value="Q">Quartile (Q)</option>
-                <option value="H">High (H)</option>
-            </select>
         </div>
     </div>
 
-    <button id="generate-button">Generate QR Code</button>
+    <button id="generate-button" data-i18n-key="generateButton">Generate QR Code</button>
     <div id="qrcode"></div>
     <div id="download-buttons">
-      <button id="download-png"><i class="fas fa-file-image"></i> PNG</button>
-      <button id="download-jpeg"><i class="fas fa-file-image"></i> JPEG</button>
-      <button id="download-pdf"><i class="fas fa-file-pdf"></i> PDF</button>
+      <button id="download-png" data-i18n-key="downloadPngButton"><i class="fas fa-file-image"></i> PNG</button>
+      <button id="download-jpeg" data-i18n-key="downloadJpegButton"><i class="fas fa-file-image"></i> JPEG</button>
+      <button id="download-pdf" data-i18n-key="downloadPdfButton"><i class="fas fa-file-pdf"></i> PDF</button>
     </div>
   </div>
+  <div class="descriptions-container">
+    <h2 data-i18n-key="descriptionsTitle">QR Code Types: Explanations and Examples</h2>
+
+    <div class="description-card">
+        <h3 data-i18n-key="descTextTitle"><i class="fas fa-font"></i> Text / URL</h3>
+        <p><strong data-i18n-key="descTextDesc">Description:</strong> Creates a QR code that contains plain text or a web link. When a URL is scanned, it will open the website in a browser.</p>
+        <p><strong data-i18n-key="descTextExample">Usage Example:</strong> Use on posters, business cards, or product packaging to direct users to your website, a social media profile, or a promotional landing page.</p>
+    </div>
+
+    <div class="description-card">
+        <h3 data-i18n-key="descWifiTitle"><i class="fas fa-wifi"></i> Wi-Fi</h3>
+        <p><strong data-i18n-key="descWifiDesc">Description:</strong> Allows users to connect to a Wi-Fi network automatically without manually entering the SSID and password.</p>
+        <p><strong data-i18n-key="descWifiExample">Usage Example:</strong> Perfect for cafes, offices, or homes. Display the QR code so guests can connect to your Wi-Fi instantly and securely.</p>
+    </div>
+
+    <div class="description-card">
+        <h3 data-i18n-key="descEmailTitle"><i class="fas fa-envelope"></i> Email</h3>
+        <p><strong data-i18n-key="descEmailDesc">Description:</strong> Generates a QR code that opens the user's default email client with a pre-filled recipient, subject, and message body.</p>
+        <p><strong data-i18n-key="descEmailExample">Usage Example:</strong> Place on a contact page or business card to let potential clients or customers email you with a single scan.</p>
+    </div>
+
+    <div class="description-card">
+        <h3 data-i18n-key="descSmsTitle"><i class="fas fa-comment-sms"></i> SMS</h3>
+        <p><strong data-i18n-key="descSmsDesc">Description:</strong> Creates a QR code that opens the user's messaging app with a pre-filled phone number and message.</p>
+        <p><strong data-i18n-key="descSmsExample">Usage Example:</strong> Use in marketing campaigns where you want users to text a specific code or message, for example, to subscribe to a service or enter a contest.</p>
+    </div>
+
+    <div class="description-card">
+        <h3 data-i18n-key="descVcardTitle"><i class="fas fa-address-card"></i> vCard</h3>
+        <p><strong data-i18n-key="descVcardDesc">Description:</strong> A digital business card. Scanning it allows users to save your contact information (name, phone, email) directly to their phone's address book.</p>
+        <p><strong data-i18n-key="descVcardExample">Usage Example:</strong> The ultimate networking tool. Put this on your business card or in your email signature to make it effortless for others to save your contact details.</p>
+    </div>
+
+    <div class="description-card">
+        <h3 data-i18n-key="descEventTitle"><i class="fas fa-calendar-alt"></i> Event</h3>
+        <p><strong data-i18n-key="descEventDesc">Description:</strong> Creates a calendar event that users can add to their device's calendar. It includes the event title, start time, and end time.</p>
+        <p><strong data-i18n-key="descEventExample">Usage Example:</strong> Ideal for event invitations, conference schedules, or appointment reminders. A quick scan and the event is saved in their calendar.</p>
+    </div>
+  </div>
+  </main>
+  <footer>
+      <p data-i18n-key="footerText">A simple and powerful QR Code Generator created by Gemini.</p>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
+  <script src="translations.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

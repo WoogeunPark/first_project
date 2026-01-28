@@ -1,57 +1,118 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
+/* --- Base & Variables --- */
 :root {
   --primary-color: #00aaff;
   --secondary-color: #0077cc;
-  --background-color: #1a1a1a;
-  --container-background: #242424;
-  --text-color: #f0f0f0;
-  --border-color: #555;
+  --background-color: #121418;
+  --container-background: #1a1d23;
+  --text-color: #e0e0e0;
+  --text-color-secondary: #a0a0a0;
+  --border-color: #3a3f4b;
   --border-radius: 0.5rem;
   --font-sans: 'Roboto', sans-serif;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --primary-glow: rgba(0, 170, 255, 0.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- General --- */
+* {
+  box-sizing: border-box;
 }
 
 body {
   font-family: var(--font-sans);
-  background: radial-gradient(circle, var(--background-color) 0%, #111 100%);
+  background-color: var(--background-color);
   color: var(--text-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   margin: 0;
-  padding: 1rem;
-  box-sizing: border-box;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* --- Header & Footer --- */
+header {
+  position: relative; /* Needed for absolute positioning of language switcher */
+  display: flex; /* Make header a flex container */
+  justify-content: center; /* Center the h1 */
+  align-items: center; /* Vertically align items */
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.language-switcher {
+  position: absolute;
+  right: 1.5rem; /* Position to the right */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center */
+}
+
+#language-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--container-background);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23bbb' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.8em;
+}
+
+#language-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
+}
+
+/* --- Main Layout --- */
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* --- QR Generator Container --- */
 .container {
   background-color: var(--container-background);
   padding: 2rem 2.5rem;
   border-radius: var(--border-radius);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border: 1px solid var(--border-color);
   text-align: center;
   width: 100%;
-  max-width: 420px;
-  transition: all 0.3s ease;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-h1 {
-  color: var(--text-color);
-  margin-bottom: 2rem;
-  font-weight: 700;
-  font-size: 2rem;
-}
-
+/* --- Form Elements --- */
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -66,7 +127,6 @@ textarea {
   border-radius: var(--border-radius);
   background-color: #2c2c2c;
   color: var(--text-color);
-  box-sizing: border-box;
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
   -webkit-appearance: none;
@@ -79,16 +139,10 @@ textarea {
   min-height: 80px;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-input[type="datetime-local"]:focus,
-select:focus,
-textarea:focus {
+input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 .input-group {
@@ -100,7 +154,7 @@ textarea:focus {
 .input-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #bbb;
+  color: var(--text-color-secondary);
   font-size: 0.9rem;
   font-weight: 400;
 }
@@ -112,57 +166,37 @@ textarea:focus {
   background-size: 1em;
 }
 
-
-#wifi-form input,
-#wifi-form select {
-  margin-bottom: 1rem;
-}
-
-.customization-group {
-    margin: 1.5rem 0;
-}
-
 .customization-group h3 {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    color: #bbb;
-    text-align: left;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--text-color-secondary);
+  text-align: left;
 }
 
 .color-picker {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
 }
 
 .color-picker label {
-    color: #bbb;
-    font-size: 0.9rem;
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
 }
 
 input[type="color"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 40px;
-    height: 40px;
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    cursor: pointer;
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  width: 40px; height: 40px;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  cursor: pointer;
 }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; border-radius: 50%; }
+input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
 
-input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-    border-radius: 50%;
-}
-
-input[type="color"]::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-
+/* --- Buttons --- */
 button#generate-button {
   width: 100%;
   padding: 0.85rem 1rem;
@@ -176,32 +210,12 @@ button#generate-button {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-top: 1rem;
 }
 
 button#generate-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
-}
-
-#qrcode {
-  margin: 2rem auto 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  min-height: 150px;
-}
-
-#qrcode.generated {
-  animation: fadeIn 0.5s ease-out;
-}
-
-#qrcode img {
-  display: block;
-  border-radius: calc(var(--border-radius) - 8px);
+  box-shadow: 0 4px 15px var(--primary-glow);
 }
 
 #download-buttons {
@@ -231,3 +245,79 @@ button#generate-button:hover {
 #download-buttons button .fas {
   margin-right: 0.5rem;
 }
+
+/* --- QR Code Display --- */
+#qrcode {
+  margin: 2rem auto 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  min-height: 200px;
+}
+#qrcode.generated { animation: fadeIn 0.5s ease-out; }
+#qrcode canvas {
+  display: block;
+  border-radius: calc(var(--border-radius) - 8px);
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: pixelated;
+}
+
+/* --- Descriptions Section --- */
+.descriptions-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 3rem auto;
+  animation: fadeIn 0.5s 0.3s ease-out both;
+}
+
+.descriptions-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+
+.description-card {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.description-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-color);
+  background-color: rgba(44, 52, 69, 0.3);
+}
+
+.description-card h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.description-card h3 .fas {
+  margin-right: 0.75rem;
+  color: var(--primary-color);
+  width: 20px;
+  text-align: center;
+}
+
+.description-card p {
+  margin: 0.25rem 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--text-color-secondary);
+}
+
+.description-card p strong {
+  color: var(--text-color);
+}
+

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - QR Code Generator</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href='style.css?v=8' rel='stylesheet'>
+</head>
+<body>
+  <header>
+    <h1>QR Code Generator</h1>
+    <div class="language-switcher">
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ko">한국어</option>
+      </select>
+    </div>
+  </header>
+  <main class="main-content">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>If you have any questions or feedback regarding the QR Code Generator, please feel free to reach out to us.</p>
+      
+      <p><strong>Email:</strong> <a href="mailto:support@example.com">support@example.com</a></p>
+      <p>Please replace "support@example.com" with your actual contact email address.</p>
+
+      <form id="contact-form">
+        <div class="input-group">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="input-group">
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+      <p>Note: This is a static form example. For actual functionality, you would need a backend service to process form submissions.</p>
+    </div>
+  </main>
+  <footer>
+      <p>A simple and powerful QR Code Generator created by Gemini.</p>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
+  <script src="translations.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

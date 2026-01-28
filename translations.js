@@ -24,8 +24,8 @@ const translations = {
     "vcardPhonePlaceholder": "Phone",
     "vcardEmailPlaceholder": "Email",
     "eventTitlePlaceholder": "Event Title",
-    "eventStartPlaceholder": "Start Time",
-    "eventEndPlaceholder": "End Time",
+    "eventStartPlaceholder": "", // Removed placeholder as it's handled by browser
+    "eventEndPlaceholder": "",   // Removed placeholder as it's handled by browser
     "customizationTitle": "Customization",
     "foregroundColorLabel": "Foreground Color",
     "backgroundColorLabel": "Background Color",
@@ -52,7 +52,23 @@ const translations = {
     "descEventTitle": "Event",
     "descEventDesc": "Description: Creates a calendar event that users can add to their device's calendar. It includes the event title, start time, and end time.",
     "descEventExample": "Usage Example: Ideal for event invitations, conference schedules, or appointment reminders. A quick scan and the event is saved in their calendar.",
-    "footerText": "A simple and powerful QR Code Generator created by Gemini."
+    "footerText": "A simple and powerful QR Code Generator created by Gemini.",
+    "privacyPolicyLink": "Privacy Policy",
+    "contactUsLink": "Contact Us",
+    "privacyPolicyTitle": "Privacy Policy",
+    "privacyPolicyP1": "This is a sample Privacy Policy. For a live website, you must fill this with your actual privacy policy details, including how you collect, use, and share user data.",
+    "privacyPolicyP2": "We do not collect any personally identifiable information from users of this QR Code Generator tool. All QR code generation is done client-side in your browser, and no data is sent to our servers.",
+    "privacyPolicyP3": "We do not store any log data from your usage of this tool.",
+    "privacyPolicyP4": "This tool does not use cookies for tracking or storing personal information. It uses localStorage to remember your language preference.",
+    "privacyPolicyP5": "If you have any questions about this Privacy Policy, please contact us via the Contact Us page.",
+    "contactUsTitle": "Contact Us",
+    "contactUsP1": "If you have any questions or feedback regarding the QR Code Generator, please feel free to reach out to us.",
+    "contactUsP2": "Email: support@example.com",
+    "contactUsP3": "Please replace 'support@example.com' with your actual contact email address.",
+    "contactUsFormName": "Your Name:",
+    "contactUsFormEmail": "Your Email:",
+    "contactUsFormMessage": "Message:",
+    "contactUsFormSubmit": "Send Message"
   },
   ko: {
     "pageTitle": "QR 코드 생성기",
@@ -79,8 +95,8 @@ const translations = {
     "vcardPhonePlaceholder": "전화번호",
     "vcardEmailPlaceholder": "이메일",
     "eventTitlePlaceholder": "이벤트 제목",
-    "eventStartPlaceholder": "시작 시간",
-    "eventEndPlaceholder": "종료 시간",
+    "eventStartPlaceholder": "", // Removed placeholder as it's handled by browser
+    "eventEndPlaceholder": "",   // Removed placeholder as it's handled by browser
     "customizationTitle": "사용자 설정",
     "foregroundColorLabel": "전경색",
     "backgroundColorLabel": "배경색",
@@ -107,6 +123,22 @@ const translations = {
     "descEventTitle": "이벤트",
     "descEventDesc": "설명: 이벤트 제목, 시작 및 종료 시간이 포함된 캘린더 이벤트를 생성하여 사용자의 기기 캘린더에 추가할 수 있습니다.",
     "descEventExample": "활용 예시: 이벤트 초대장, 컨퍼런스 일정, 약속 알림에 이상적입니다. 빠른 스캔으로 일정을 캘린더에 저장할 수 있습니다.",
-    "footerText": "Gemini가 만든 간단하고 강력한 QR 코드 생성기입니다."
+    "footerText": "Gemini가 만든 간단하고 강력한 QR 코드 생성기입니다.",
+    "privacyPolicyLink": "개인정보처리방침",
+    "contactUsLink": "문의하기",
+    "privacyPolicyTitle": "개인정보처리방침",
+    "privacyPolicyP1": "이것은 샘플 개인정보처리방침입니다. 실제 웹사이트에서는 사용자 데이터 수집, 사용 및 공유 방법에 대한 실제 개인정보처리방침 세부 정보로 채워야 합니다.",
+    "privacyPolicyP2": "저희 QR 코드 생성기 도구는 사용자로부터 개인 식별 정보를 수집하지 않습니다. 모든 QR 코드 생성은 브라우저에서 클라이언트 측으로 수행되며, 서버로 데이터가 전송되지 않습니다.",
+    "privacyPolicyP3": "저희는 이 도구의 사용으로부터 어떠한 로그 데이터도 저장하지 않습니다.",
+    "privacyPolicyP4": "이 도구는 추적 또는 개인 정보 저장을 위해 쿠키를 사용하지 않습니다. 언어 기본 설정을 기억하기 위해 localStorage를 사용합니다.",
+    "privacyPolicyP5": "이 개인정보처리방침에 대한 질문이 있으시면, '문의하기' 페이지를 통해 문의해 주십시오.",
+    "contactUsTitle": "문의하기",
+    "contactUsP1": "QR 코드 생성기와 관련하여 질문이나 피드백이 있으시면 언제든지 연락 주십시오.",
+    "contactUsP2": "이메일: support@example.com",
+    "contactUsP3": "'support@example.com'을 실제 문의 이메일 주소로 교체해 주십시오.",
+    "contactUsFormName": "이름:",
+    "contactUsFormEmail": "이메일:",
+    "contactUsFormMessage": "메시지:",
+    "contactUsFormSubmit": "메시지 보내기"
   }
 };

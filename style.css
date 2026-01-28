@@ -321,3 +321,93 @@ button#generate-button:hover {
   color: var(--text-color);
 }
 
+/* --- Footer Links --- */
+footer .footer-links {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+footer .footer-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer .footer-links a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+footer .footer-separator {
+  color: var(--text-color-secondary);
+}
+
+/* --- General Page Content (for privacy/contact pages) --- */
+.main-content .container h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.main-content .container h3 {
+  font-size: 1.4rem;
+  color: var(--text-color);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.main-content .container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color-secondary);
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.main-content .container p a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.main-content .container p a:hover {
+  text-decoration: underline;
+}
+
+/* Contact Form Specifics */
+#contact-form {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: #24272e;
+}
+
+#contact-form .input-group label {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+  background-color: #1e2025;
+  border-color: #444;
+}
+
+#contact-form button[type="submit"] {
+  width: auto;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+}
+
+#contact-form button[type="submit"]:hover {
+  box-shadow: 0 4px 15px var(--primary-glow);
+  transform: translateY(-2px);
+}

@@ -72,3 +72,26 @@ button:hover {
   padding: 1rem;
   border-radius: var(--border-radius);
 }
+
+#download-buttons {
+  display: none;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+#download-buttons button {
+  width: auto;
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+#download-buttons button:hover {
+  background-color: #444;
+}
+
+#download-buttons button .fas {
+  margin-right: 0.5rem;
+}

@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QR Code Generator</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-  <link href='style.css?v=3' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href='style.css?v=5' rel='stylesheet'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -13,6 +15,11 @@
     <input type="text" id="text-input" placeholder="Enter text or URL">
     <button id="generate-button">Generate QR Code</button>
     <div id="qrcode"></div>
+    <div id="download-buttons">
+      <button id="download-png"><i class="fas fa-file-image"></i> PNG</button>
+      <button id="download-jpeg"><i class="fas fa-file-image"></i> JPEG</button>
+      <button id="download-pdf"><i class="fas fa-file-pdf"></i> PDF</button>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
   <script>
@@ -20,22 +27,71 @@
       const textInput = document.getElementById('text-input');
       const generateButton = document.getElementById('generate-button');
       const qrcodeContainer = document.getElementById('qrcode');
+      const downloadButtons = document.getElementById('download-buttons');
+      const downloadPngButton = document.getElementById('download-png');
+      const downloadJpegButton = document.getElementById('download-jpeg');
+      const downloadPdfButton = document.getElementById('download-pdf');
 
       generateButton.addEventListener('click', () => {
         const text = textInput.value;
         if (text) {
           try {
+            qrcodeContainer.innerHTML = '';
             const typeNumber = 4;
             const errorCorrectionLevel = 'L';
             const qr = qrcode(typeNumber, errorCorrectionLevel);
             qr.addData(text);
             qr.make();
             qrcodeContainer.innerHTML = qr.createImgTag();
+            downloadButtons.style.display = 'flex';
           } catch (e) {
             console.error(e);
             alert("Error generating QR code.");
+            downloadButtons.style.display = 'none';
           }
+        } else {
+          qrcodeContainer.innerHTML = '';
+          downloadButtons.style.display = 'none';
         }
+      });
+
+      const downloadImage = (format) => {
+        const img = qrcodeContainer.querySelector('img');
+        if (!img) return;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/' + format);
+        a.download = 'qrcode.' + format;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+
+      downloadPngButton.addEventListener('click', () => downloadImage('png'));
+      downloadJpegButton.addEventListener('click', () => downloadImage('jpeg'));
+
+      downloadPdfButton.addEventListener('click', () => {
+        const img = qrcodeContainer.querySelector('img');
+        if (!img) return;
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imgData = canvas.toDataURL('image/png');
+
+        doc.addImage(imgData, 'PNG', 10, 10, 50, 50);
+        doc.save('qrcode.pdf');
       });
     });
   </script>

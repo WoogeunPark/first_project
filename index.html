@@ -12,7 +12,73 @@
 <body>
   <div class="container">
     <h1>QR Code Generator</h1>
-    <input type="text" id="text-input" placeholder="Enter text or URL">
+    <div class="input-group">
+      <label for="qr-type">Type</label>
+      <select id="qr-type">
+        <option value="text">Text/URL</option>
+        <option value="wifi">Wi-Fi</option>
+        <option value="email">Email</option>
+        <option value="sms">SMS</option>
+        <option value="vcard">vCard</option>
+        <option value="event">Event</option>
+      </select>
+    </div>
+
+    <div id="input-forms">
+      <div id="text-form">
+        <input type="text" id="text-input" placeholder="Enter text or URL">
+      </div>
+      <div id="wifi-form" style="display: none;">
+        <input type="text" id="wifi-ssid" placeholder="Network SSID">
+        <input type="password" id="wifi-password" placeholder="Password">
+        <select id="wifi-encryption">
+          <option value="WPA">WPA/WPA2</option>
+          <option value="WEP">WEP</option>
+          <option value="nopass">No Password</option>
+        </select>
+      </div>
+      <div id="email-form" style="display: none;">
+        <input type="email" id="email-to" placeholder="Recipient's Email">
+        <input type="text" id="email-subject" placeholder="Subject">
+        <textarea id="email-body" placeholder="Message"></textarea>
+      </div>
+      <div id="sms-form" style="display: none;">
+        <input type="tel" id="sms-to" placeholder="Phone Number">
+        <textarea id="sms-body" placeholder="Message"></textarea>
+      </div>
+      <div id="vcard-form" style="display: none;">
+        <input type="text" id="vcard-name" placeholder="Name">
+        <input type="tel" id="vcard-phone" placeholder="Phone">
+        <input type="email" id="vcard-email" placeholder="Email">
+      </div>
+      <div id="event-form" style="display: none;">
+        <input type="text" id="event-title" placeholder="Event Title">
+        <input type="datetime-local" id="event-start" placeholder="Start Time">
+        <input type="datetime-local" id="event-end" placeholder="End Time">
+      </div>
+    </div>
+
+    <div class="customization-group">
+        <h3>Customization</h3>
+        <div class="color-picker">
+            <label for="fg-color">Foreground Color</label>
+            <input type="color" id="fg-color" value="#000000">
+        </div>
+        <div class="color-picker">
+            <label for="bg-color">Background Color</label>
+            <input type="color" id="bg-color" value="#ffffff">
+        </div>
+        <div class="input-group">
+            <label for="error-correction">Error Correction</label>
+            <select id="error-correction">
+                <option value="L">Low (L)</option>
+                <option value="M">Medium (M)</option>
+                <option value="Q">Quartile (Q)</option>
+                <option value="H">High (H)</option>
+            </select>
+        </div>
+    </div>
+
     <button id="generate-button">Generate QR Code</button>
     <div id="qrcode"></div>
     <div id="download-buttons">
@@ -22,78 +88,6 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const textInput = document.getElementById('text-input');
-      const generateButton = document.getElementById('generate-button');
-      const qrcodeContainer = document.getElementById('qrcode');
-      const downloadButtons = document.getElementById('download-buttons');
-      const downloadPngButton = document.getElementById('download-png');
-      const downloadJpegButton = document.getElementById('download-jpeg');
-      const downloadPdfButton = document.getElementById('download-pdf');
-
-      generateButton.addEventListener('click', () => {
-        const text = textInput.value;
-        if (text) {
-          try {
-            qrcodeContainer.innerHTML = '';
-            const typeNumber = 4;
-            const errorCorrectionLevel = 'L';
-            const qr = qrcode(typeNumber, errorCorrectionLevel);
-            qr.addData(text);
-            qr.make();
-            qrcodeContainer.innerHTML = qr.createImgTag();
-            downloadButtons.style.display = 'flex';
-          } catch (e) {
-            console.error(e);
-            alert("Error generating QR code.");
-            downloadButtons.style.display = 'none';
-          }
-        } else {
-          qrcodeContainer.innerHTML = '';
-          downloadButtons.style.display = 'none';
-        }
-      });
-
-      const downloadImage = (format) => {
-        const img = qrcodeContainer.querySelector('img');
-        if (!img) return;
-
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL('image/' + format);
-        a.download = 'qrcode.' + format;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      };
-
-      downloadPngButton.addEventListener('click', () => downloadImage('png'));
-      downloadJpegButton.addEventListener('click', () => downloadImage('jpeg'));
-
-      downloadPdfButton.addEventListener('click', () => {
-        const img = qrcodeContainer.querySelector('img');
-        if (!img) return;
-
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        const imgData = canvas.toDataURL('image/png');
-
-        doc.addImage(imgData, 'PNG', 10, 10, 50, 50);
-        doc.save('qrcode.pdf');
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
